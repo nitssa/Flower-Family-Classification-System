@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloralFor - Flower Detection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top left, #ffe6eb, #fff) no-repeat, #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            text-align: center;
+            width: 400px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: black;
+        }
+
+        .form-group input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border: 1px solid #ff5e73;
+        }
+
+        .submit-btn {
+            background-color: #ff5e73;
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: #ff2a4d;
+        }
+
+        .divider {
+            margin: 20px 0;
+            border-top: 1px solid #ccc;
+        }
+
+        .flower-decoration {
+            position: absolute;
+            bottom: 60px; /* Adjust to fine-tune positioning */
+            right: 200px;  /* Adjust to fine-tune positioning */
+            z-index: 0;
+            width: 433px;
+            height: 395px;
+            opacity: 100;
+        }
+    </style>
+</head>
+<body>
+    
+    <img class="flower-decoration" src="{% static 'images/flower-removebg-preview.png' %}" alt="Flower Decoration">
+    <div class="container">
+        <h1>Floral Identification</h1>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="sepal_length">Sepal Length:</label>
+                <input type="number" id="sepal_length" name="sepal_length" required>
+            </div>
+            <div class="form-group">
+                <label for="sepal_width">Sepal Width:</label>
+                <input type="number" id="sepal_width" name="sepal_width" required>
+            </div>
+            <div class="form-group">
+                <label for="petal_length">Petal Length:</label>
+                <input type="number" id="petal_length" name="petal_length" required>
+            </div>
+            <div class="form-group">
+                <label for="petal_width">Petal Width:</label>
+                <input type="number" id="petal_width" name="petal_width" required>
+            </div>
+            <button type="submit" class="submit-btn">Classify Flower</button>
+        </form>
+        <div class="divider"></div>
+        {% if result %}
+            <h1>Flower you're trying to classify is {{ result }}</h1>
+        {% endif %}
+    </div>
+</body>
+</html>
